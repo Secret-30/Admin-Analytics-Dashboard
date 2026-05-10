@@ -12,15 +12,15 @@ const initialJobs = [
 ];
 
 const initialApplicants = [
-    { id: 1, name: "Alice Johnson", position: "Frontend Developer", status: "Pending" },
+    { id: 1, name: "Alice Johnson", position: "Frontend Developer", status: "Selected" },
     { id: 2, name: "Michael Chen", position: "UI/UX Designer", status: "Pending" },
-    { id: 3, name: "Sarah Smith", position: "Digital Marketing Executive", status: "Pending" },
-    { id: 4, name: "Emma Davis", position: "Full Stack Developer", status: "Pending" },
-    { id: 5, name: "Rahul Sharma", position: "Backend Developer", status: "Pending" },
+    { id: 3, name: "Sarah Smith", position: "Digital Marketing Executive", status: "In Review" },
+    { id: 4, name: "Emma Davis", position: "Full Stack Developer", status: "In Active" },
+    { id: 5, name: "Rahul Sharma", position: "Backend Developer", status: "Selected" },
     { id: 6, name: "Liam Wilson", position: "Backend Engineer", status: "Pending" },
-    { id: 7, name: "Olivia Taylor", position: "Test Automation Engineer", status: "Pending" },
+    { id: 7, name: "Olivia Taylor", position: "Test Automation Engineer", status: "In Review" },
     { id: 8, name: "David Miller", position: "Frontend Developer", status: "Pending" },
-    { id: 9, name: "James Anderson", position: "Backend Developer", status: "Pending" }
+    { id: 9, name: "James Anderson", position: "Backend Developer", status: "In Review" }
 ];
 
 // FORCE RESET: This clears out any old, equalized data stored in your browser
