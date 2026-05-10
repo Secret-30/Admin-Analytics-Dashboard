@@ -1,4 +1,4 @@
-// --- UNIFIED BASE DATASET WITH CATEGORY STANDARDIZATION ---
+// --- UNIFIED BASE DATASET WITH CORRECT MAPPINGS & REALISTIC PROPORTIONS ---
 const initialJobs = [
     { id: 1, title: "Frontend Developer", category: "Development", status: "Active" },
     { id: 2, title: "Backend Developer", category: "Development", status: "Active" },
@@ -7,22 +7,23 @@ const initialJobs = [
     { id: 5, title: "UI/UX Designer", category: "Design", status: "Active" },
     { id: 6, title: "Digital Marketing Executive", category: "Marketing", status: "Active" },
     { id: 7, title: "Backend Engineer", category: "Development", status: "Active" },
-    { id: 8, title: "Test Automation Engineer", category: "Development", status: "Active" }
+    { id: 8, title: "Test Automation Engineer", category: "Development", status: "Active" },
+    { id: 9, title: "Web Development", category: "Development", status: "Active" }
 ];
 
 const initialApplicants = [
-    { id: 1, name: "Alice Johnson", position: "Full Stack Developer", status: "Selected" },
-    { id: 2, name: "Michael Chen", position: "UI/UX Designer", status: "Shortlisted" },
+    { id: 1, name: "Alice Johnson", position: "Frontend Developer", status: "Pending" },
+    { id: 2, name: "Michael Chen", position: "UI/UX Designer", status: "Pending" },
     { id: 3, name: "Sarah Smith", position: "Digital Marketing Executive", status: "Pending" },
-    { id: 4, name: "Emma Davis", position: "Frontend Developer", status: "Selected" },
-    { id: 5, name: "Rahul Sharma", position: "Backend Developer", status: "Shortlisted" },
-    { id: 6, name: "Sophia Martinez", position: "Backend Engineer", status: "Pending" },
-    { id: 7, name: "Liam Wilson", position: "Backend Engineer", status: "Selected" },
-    { id: 8, name: "Olivia Taylor", position: "Test Automation Engineer", status: "Pending" },
-    { id: 9, name: "David Miller", position: "Frontend Developer", status: "Pending" }
+    { id: 4, name: "Emma Davis", position: "Full Stack Developer", status: "Pending" },
+    { id: 5, name: "Rahul Sharma", position: "Backend Developer", status: "Pending" },
+    { id: 6, name: "Liam Wilson", position: "Backend Engineer", status: "Pending" },
+    { id: 7, name: "Olivia Taylor", position: "Test Automation Engineer", status: "Pending" },
+    { id: 8, name: "David Miller", position: "Frontend Developer", status: "Pending" },
+    { id: 9, name: "James Anderson", position: "Backend Developer", status: "Pending" }
 ];
 
-// Ensure fallback datasets are present in LocalStorage
+// Ensure fallback datasets are stored inside LocalStorage
 function verifyAndSyncStorage() {
     if (!localStorage.getItem('jobs')) {
         localStorage.setItem('jobs', JSON.stringify(initialJobs));
@@ -48,6 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
     initClickableStats();
     initModalHandlers();
     initLogoutHandler();
+    initPasswordToggle(); // Initialize password eye symbol visibility toggle
     
     // Global filter and search listeners
     document.getElementById("categoryFilter").addEventListener("change", renderDashboard);
@@ -65,7 +67,7 @@ function checkAuthState() {
     if (isLoggedIn) {
         loginScreen.style.setProperty('display', 'none', 'important');
         dashboardApp.style.setProperty('display', 'flex', 'important');
-        renderDashboard(); // Boot up dashboard tables & charts safely
+        renderDashboard(); // Render tables & charts
     } else {
         loginScreen.style.setProperty('display', 'flex', 'important');
         dashboardApp.style.setProperty('display', 'none', 'important');
@@ -81,7 +83,7 @@ function initAuthForm() {
         const usernameInput = document.getElementById("username").value.trim();
         const passwordInput = document.getElementById("password").value;
 
-        // Credentials Gate: username 'admin' and password 'admin123'
+        // Credentials Gate
         if (usernameInput === "admin" && passwordInput === "admin123") {
             sessionStorage.setItem("isLoggedIn", "true");
             errorMsg.textContent = "";
@@ -89,6 +91,25 @@ function initAuthForm() {
             checkAuthState(); // Transition views instantly
         } else {
             errorMsg.textContent = "Invalid username or password. Try admin / admin123";
+        }
+    });
+}
+
+// --- PASSWORD SHOW/HIDE TOGGLE HANDLER ---
+function initPasswordToggle() {
+    const toggleBtn = document.getElementById("togglePasswordBtn");
+    const passwordInput = document.getElementById("password");
+    const eyeIcon = document.getElementById("eyeIcon");
+
+    toggleBtn.addEventListener("click", () => {
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+            eyeIcon.classList.remove("fa-eye");
+            eyeIcon.classList.add("fa-eye-slash");
+        } else {
+            passwordInput.type = "password";
+            eyeIcon.classList.remove("fa-eye-slash");
+            eyeIcon.classList.add("fa-eye");
         }
     });
 }
