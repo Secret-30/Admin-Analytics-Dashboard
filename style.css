@@ -570,20 +570,44 @@ td {
     font-size: 0.95rem;
 }
 
+/* ================= STATUS BADGE STYLES ================= */
 .badge {
     display: inline-block;
-    padding: 4px 8px;
+    padding: 6px 12px;
     border-radius: 20px;
     font-size: 0.75rem;
     font-weight: 600;
+    text-transform: capitalize; /* Automatically capitalizes the first letter */
 }
 
-.badge-active { background-color: rgba(16, 185, 129, 0.1); color: var(--accent-green); }
-.badge-inactive { background-color: rgba(239, 68, 68, 0.1); color: var(--accent-red); }
-.badge-pending { background-color: rgba(245, 158, 11, 0.1); color: var(--accent-orange); }
-.badge-selected { background-color: rgba(16, 185, 129, 0.1); color: var(--accent-green); }
-.badge-shortlisted { background-color: rgba(139, 92, 246, 0.1); color: var(--accent-purple); }
+/* Green Badges */
+.badge-active,
+.badge-selected { 
+    background-color: rgba(16, 185, 129, 0.15); 
+    color: var(--accent-green); 
+    border: 1px solid rgba(16, 185, 129, 0.3);
+}
 
+/* Orange Badges */
+.badge-pending { 
+    background-color: rgba(245, 158, 11, 0.15); 
+    color: var(--accent-orange); 
+    border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+/* Purple Badges */
+.badge-Inreview{ 
+    background-color: rgba(139, 92, 246, 0.15); 
+    color: var(--accent-purple); 
+    border: 1px solid rgba(139, 92, 246, 0.3);
+}
+
+/* Red Badges */
+.badge-inactive { 
+    background-color: rgba(239, 68, 68, 0.15); 
+    color: var(--accent-red); 
+    border: 1px solid rgba(239, 68, 68, 0.3);
+}
 .delete-btn {
     background: none;
     border: 1px solid rgba(239, 68, 68, 0.3);
