@@ -134,7 +134,7 @@ body {
 }
 
 .password-input-container input {
-    padding-right: 45px !important; /* Make room for the eye button */
+    padding-right: 45px !important;
 }
 
 .toggle-password-visibility {
