@@ -1,4 +1,4 @@
-// --- UNIFIED BASE DATASET ---
+// --- UNIFIED BASE DATASET WITH CATEGORY STANDARDIZATION ---
 const initialJobs = [
     { id: 1, title: "Frontend Developer", category: "Development", status: "Active" },
     { id: 2, title: "Backend Developer", category: "Development", status: "Active" },
@@ -11,10 +11,10 @@ const initialJobs = [
 ];
 
 const initialApplicants = [
-    { id: 1, name: "Alice Johnson", position: "Frontend Developer", status: "Selected" },
+    { id: 1, name: "Alice Johnson", position: "Full Stack Developer", status: "Selected" },
     { id: 2, name: "Michael Chen", position: "UI/UX Designer", status: "Shortlisted" },
     { id: 3, name: "Sarah Smith", position: "Digital Marketing Executive", status: "Pending" },
-    { id: 4, name: "Emma Davis", position: "Full Stack Developer", status: "Selected" },
+    { id: 4, name: "Emma Davis", position: "Frontend Developer", status: "Selected" },
     { id: 5, name: "Rahul Sharma", position: "Backend Developer", status: "Shortlisted" },
     { id: 6, name: "Sophia Martinez", position: "Backend Engineer", status: "Pending" },
     { id: 7, name: "Liam Wilson", position: "Backend Engineer", status: "Selected" },
@@ -63,7 +63,6 @@ function checkAuthState() {
     const dashboardApp = document.getElementById("dashboard-app");
 
     if (isLoggedIn) {
-        // Hides login and shows dashboard successfully overriding CSS display defaults
         loginScreen.style.setProperty('display', 'none', 'important');
         dashboardApp.style.setProperty('display', 'flex', 'important');
         renderDashboard(); // Boot up dashboard tables & charts safely
