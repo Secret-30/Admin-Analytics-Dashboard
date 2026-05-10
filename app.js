@@ -23,17 +23,14 @@ const initialApplicants = [
     { id: 9, name: "James Anderson", position: "Backend Developer", status: "Pending" }
 ];
 
-// Ensure fallback datasets are stored inside LocalStorage
-function verifyAndSyncStorage() {
-    if (!localStorage.getItem('jobs')) {
-        localStorage.setItem('jobs', JSON.stringify(initialJobs));
-    }
-    if (!localStorage.getItem('applicants')) {
-        localStorage.setItem('applicants', JSON.stringify(initialApplicants));
-    }
+// FORCE RESET: This clears out any old, equalized data stored in your browser
+function forceResetStorage() {
+    localStorage.setItem('jobs', JSON.stringify(initialJobs));
+    localStorage.setItem('applicants', JSON.stringify(initialApplicants));
 }
 
-verifyAndSyncStorage();
+// Execute force reset to ensure your live GitHub site updates immediately
+forceResetStorage();
 
 let jobs = JSON.parse(localStorage.getItem('jobs'));
 let applicants = JSON.parse(localStorage.getItem('applicants'));
@@ -43,13 +40,13 @@ let pieChartInstance = null;
 
 // --- INITIALIZATION GATEWAY ---
 document.addEventListener("DOMContentLoaded", () => {
-    checkAuthState(); // Initialize authentication gate
+    checkAuthState(); 
     initAuthForm();
     initNavigation();
     initClickableStats();
     initModalHandlers();
     initLogoutHandler();
-    initPasswordToggle(); // Initialize password eye symbol visibility toggle
+    initPasswordToggle(); 
     
     // Global filter and search listeners
     document.getElementById("categoryFilter").addEventListener("change", renderDashboard);
@@ -67,7 +64,7 @@ function checkAuthState() {
     if (isLoggedIn) {
         loginScreen.style.setProperty('display', 'none', 'important');
         dashboardApp.style.setProperty('display', 'flex', 'important');
-        renderDashboard(); // Render tables & charts
+        renderDashboard(); 
     } else {
         loginScreen.style.setProperty('display', 'flex', 'important');
         dashboardApp.style.setProperty('display', 'none', 'important');
@@ -83,12 +80,11 @@ function initAuthForm() {
         const usernameInput = document.getElementById("username").value.trim();
         const passwordInput = document.getElementById("password").value;
 
-        // Credentials Gate
         if (usernameInput === "admin" && passwordInput === "admin123") {
             sessionStorage.setItem("isLoggedIn", "true");
             errorMsg.textContent = "";
             loginForm.reset();
-            checkAuthState(); // Transition views instantly
+            checkAuthState(); 
         } else {
             errorMsg.textContent = "Invalid username or password. Try admin / admin123";
         }
@@ -118,8 +114,8 @@ function initPasswordToggle() {
 function initLogoutHandler() {
     document.getElementById("logoutBtn").addEventListener("click", () => {
         if (confirm("Are you sure you want to log out?")) {
-            sessionStorage.removeItem("isLoggedIn"); // Invalidate session
-            checkAuthState(); // Lock dashboard immediately
+            sessionStorage.removeItem("isLoggedIn"); 
+            checkAuthState(); 
         }
     });
 }
@@ -155,7 +151,6 @@ function switchTab(clickedMenuItem, sections, pageTitle) {
         pageTitle.textContent = clickedMenuItem.textContent.trim();
     }
     
-    // Reset filters and search queries upon changing tabs
     document.getElementById("globalSearch").value = "";
     document.getElementById("categoryFilter").value = "all";
     document.getElementById("statusFilter").value = "all";
@@ -243,7 +238,7 @@ function renderDashboard() {
         job.applicants = applicants.filter(app => app.position === job.title).length;
     });
 
-    // 2. Filter Jobs Table Dataset (By search title, category, and status)
+    // 2. Filter Jobs Table Dataset
     let filteredJobs = jobs.filter(job => {
         const matchesCategory = (categoryFilter === "all" || job.category === categoryFilter);
         const matchesStatus = (statusFilter === "all" || job.status === statusFilter);
