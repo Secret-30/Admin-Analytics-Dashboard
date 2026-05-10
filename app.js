@@ -224,7 +224,7 @@ function initModalHandlers() {
     });
 }
 
-// --- CORE RENDERING ENGINE ---
+// --- CORE RENDERING ENGINE (UPDATED WITH STATUS COLOR MAPPINGS) ---
 function renderDashboard() {
     if (sessionStorage.getItem("isLoggedIn") !== "true") return;
 
@@ -257,7 +257,7 @@ function renderDashboard() {
     document.getElementById("stat-total-users").textContent = applicants.length; 
     document.getElementById("stat-active-jobs").textContent = jobs.filter(j => j.status === "Active").length;
 
-    // 5. Populate Jobs Table
+    // 5. Populate Jobs Table (Uses badge-active or badge-inactive)
     const jobsTableBody = document.getElementById("jobsTableBody");
     jobsTableBody.innerHTML = "";
     filteredJobs.forEach(job => {
@@ -272,14 +272,24 @@ function renderDashboard() {
         jobsTableBody.appendChild(row);
     });
 
-    // 6. Populate Applicants Table
+    // 6. Populate Applicants Table (Assigns CSS classes based on status words)
     const applicantsTableBody = document.getElementById("applicantsTableBody");
     applicantsTableBody.innerHTML = "";
     filteredApplicants.forEach(applicant => {
         const row = document.createElement("tr");
-        let badgeClass = "badge-pending";
-        if (applicant.status === "Selected") badgeClass = "badge-selected";
-        if (applicant.status === "Shortlisted") badgeClass = "badge-shortlisted";
+        
+        // This is the logic mapping your status words to the CSS color classes:
+        let badgeClass = "badge-pending"; // Default Orange (for "Pending", "Inactive", or anything else)
+        
+        if (applicant.status === "Selected") {
+            badgeClass = "badge-selected"; // Green
+        } else if (applicant.status === "In Review") {
+            badgeClass = "badge-shortlisted"; // Purple
+        } else if (applicant.status === "Active") {
+            badgeClass = "badge-active"; // Green (for active users/jobs)
+        } else if (applicant.status === "Inactive") {
+            badgeClass = "badge-inactive"; // Red
+        }
 
         row.innerHTML = `
             <td><strong>${applicant.name}</strong></td>
@@ -293,7 +303,6 @@ function renderDashboard() {
     // 7. Render/Refresh charts dynamically
     renderCharts();
 }
-
 // --- CHART GRAPHICS CONTROLLER (Chart.js) ---
 function renderCharts() {
     const barLabels = jobs.map(j => j.title);
